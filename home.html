@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="fight.css">
+    <link rel="stylesheet" href="./normalize.css">
+    <title>Fight Club</title>
+</head>
+<body>
+    <header class="main-header">
+  <nav class="nav-menu">
+    <button class="nav-icon home-icon" title="Home">
+        <img src="assets/home.svg">
+    </button>
+    <button class="nav-icon profile-icon" title="Profile">
+        <img src="assets/profile.svg">
+    </button>
+    <button class="nav-icon settings-icon" title="Settings">
+        <img src="assets/settings.svg">
+    </button>
+  </nav>
+</header>
+<main>
+  <section class="home-screen active-screen">
+    <h1 class="welcome-title">Welcome, <span id="player-name"></span>!</h1>
+    <button id="start-fight-btn">Start the Fight!</button>
+  </section>
+   <section class="character-screen hidden-screen">
+    <h2 class="avatar-title">Your Character</h2>
+    <div class="avatar-selection">
+        <h3>Choose a Character</h3>
+      <div class="avatar-list">
+        <img src="assets/character/Character1.png" id="avatar" alt="Character 1">
+        <img src="assets/character/character2.png" id="avatar" alt="Character 2">
+        <img src="assets/character/character3.png" id="avatar" alt="Character 3">
+        <img src="assets/character/character4.png" id="avatar" alt="Character 4">
+        <img src="assets/character/character5.png" id="avatar" alt="Character 5">
+      </div>
+      <p><strong>Name:</strong> <span id="char-name"></span></p>
+      <p><strong>Wins:</strong> <span id="wins">0</span></p>
+      <p><strong>Losses:</strong> <span id="losses">0</span></p>
+    </div>
+  </section>
+</main>
+  <script>
+    // Получаем имя игрока из localStorage
+    const name = localStorage.getItem('playerName');
+    document.getElementById('player-name').textContent = name || 'Игрок';
+
+    // Переход к экрану боя
+    document.getElementById('start-fight-btn').addEventListener('click', () => {
+      window.location.href = 'fight.html';
+    });
+  </script>
+<script>
+window.onload = () => {
+  // Инициализация имени
+  const name = localStorage.getItem('playerName') || 'Игрок';
+  document.getElementById('player-name').textContent = name;
+  document.getElementById('char-name').textContent = name;
+
+  // Победы и поражения
+  document.getElementById('wins').textContent = localStorage.getItem('wins') || 0;
+  document.getElementById('losses').textContent = localStorage.getItem('losses') || 0;
+
+  // Аватар
+  const avatarSrc = localStorage.getItem('avatarSrc') || 'assets/character/Character1.png';
+  document.getElementById('avatar').src = avatarSrc;
+
+  // Смена аватара через загрузку
+  const avatarUpload = document.getElementById('avatar-upload');
+  if (avatarUpload) {
+    avatarUpload.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          document.getElementById('avatar').src = reader.result;
+          localStorage.setItem('avatarSrc', reader.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  // Выбор аватара из предложенных
+  const avatarOptions = document.querySelectorAll('.avatar-option');
+  avatarOptions.forEach(img => {
+    img.addEventListener('click', () => {
+      avatarOptions.forEach(i => i.classList.remove('selected'));
+      img.classList.add('selected');
+      const src = img.getAttribute('src');
+      document.getElementById('avatar').src = src;
+      localStorage.setItem('avatarSrc', src);
+    });
+  });
+
+  // Переключение экранов
+  function showScreen(screenClass) {
+    document.querySelectorAll('main section').forEach(sec => {
+      sec.classList.add('hidden-screen');
+      sec.classList.remove('active-screen');
+    });
+    const target = document.querySelector(`.${screenClass}`);
+    if (target) {
+      target.classList.remove('hidden-screen');
+      target.classList.add('active-screen');
+    }
+  }
+
+  // Навигация по иконкам
+  document.querySelector('.home-icon')?.addEventListener('click', () => {
+    showScreen('home-screen');
+  });
+
+  document.querySelector('.profile-icon')?.addEventListener('click', () => {
+    showScreen('character-screen');
+  });
+
+  document.getElementById('start-fight-btn')?.addEventListener('click', () => {
+    window.location.href = 'fight.html';
+  });
+};
+</script>
+
+</body>
+</html>
