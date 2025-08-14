@@ -28,22 +28,54 @@
   </section>
    <section class="character-screen hidden-screen">
     <h2 class="avatar-title">Your Character</h2>
-    <div class="avatar-selection">
-        <h3>Choose a Character</h3>
-      <div class="avatar-list">
-        <img src="assets/character/Character1.png" id="avatar" alt="Character 1">
-        <img src="assets/character/character2.png" id="avatar" alt="Character 2">
-        <img src="assets/character/character3.png" id="avatar" alt="Character 3">
-        <img src="assets/character/character4.png" id="avatar" alt="Character 4">
-        <img src="assets/character/character5.png" id="avatar" alt="Character 5">
-      </div>
+        <div class="character-card">
+          <img id="avatar" src="" alt="selected avatar">
       <p><strong>Name:</strong> <span id="char-name"></span></p>
       <p><strong>Wins:</strong> <span id="wins">0</span></p>
       <p><strong>Losses:</strong> <span id="losses">0</span></p>
+        </div>
+       <div class="avatar-selection">
+        <h3>Choose a Character</h3>
+      <div class="avatar-list">
+        <img src="assets/character/Character1.png" class="avatar-option" alt="Character 1">
+        <img src="assets/character/character2.png" class="avatar-option" alt="Character 2">
+        <img src="assets/character/character3.png" class="avatar-option" alt="Character 3">
+        <img src="assets/character/character4.png" class="avatar-option" alt="Character 4">
+        <img src="assets/character/character5.png" class="avatar-option" alt="Character 5">
+      </div>
     </div>
   </section>
+  <section class="settings-screen hidden-screen">
+  <h2>Settings</h2>
+  <div class="settings-card">
+    <label for="new-name">Change your name:</label>
+    <input type="text" id="new-name" placeholder="Enter new name" />
+    <button id="save-name-btn">Save</button>
+  </div>
+</section>
 </main>
   <script>
+    function showScreen(screenClass) {
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.classList.add('hidden-screen');
+  });
+  document.querySelector(`.${screenClass}`)?.classList.remove('hidden-screen');
+}
+
+    document.querySelector('.settings-icon')?.addEventListener('click', () => {
+  showScreen('settings-screen');
+});
+
+document.getElementById('save-name-btn')?.addEventListener('click', () => {
+  const newName = document.getElementById('new-name').value.trim();
+  if (newName) {
+    localStorage.setItem('playerName', newName);
+    document.getElementById('player-name').textContent = newName;
+    document.getElementById('char-name').textContent = newName;
+    alert('Name updated!');
+  }
+});
+
     // Получаем имя игрока из localStorage
     const name = localStorage.getItem('playerName');
     document.getElementById('player-name').textContent = name || 'Игрок';
@@ -121,6 +153,10 @@ window.onload = () => {
   document.getElementById('start-fight-btn')?.addEventListener('click', () => {
     window.location.href = 'fight.html';
   });
+  document.querySelector('.settings-icon')?.addEventListener('click', () => {
+  showScreen('settings-screen');
+});
+
 };
 </script>
 
