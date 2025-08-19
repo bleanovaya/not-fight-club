@@ -126,11 +126,14 @@ body {
   .hidden-screen {
   display: none;
 }
-
-.active-screen {
-  display: block;
+.screen {
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
-
+.active-screen {
+  opacity: 1;
+    display: block;
+}
 .character-screen {
   padding: 2rem;
   text-align: center;
@@ -228,3 +231,147 @@ body {
 #save-name-btn:hover {
   background-color: #ff1c1c;
 }
+.fight-screen {
+  background: linear-gradient(to bottom, #1c1c1c, #2a2a2a);
+  color: #f0f0f0;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.fight-screen h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #a11010;
+}
+
+.arena-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+  width: 100%;
+  max-width: 1440px;
+}
+
+.character-cards {
+  width: 350px;
+  background: #333;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 0 10px #000;
+}
+
+.character-cards h3 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #ffd700;
+}
+
+.character-cards img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.character-cards progress {
+  width: 100%;
+  height: 16px;
+  appearance: none;
+  border-radius: 8px;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #444;
+}
+
+progress::-webkit-progress-value {
+  background-color: #a11010;
+}
+
+.zone-panel {
+  flex: 1;
+  max-width: 500px;
+  background: #222;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 10px #000;
+  text-align: center;
+}
+
+.zone-panel p {
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.attack-zones, .defense-zones {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.zone {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.attack {
+  background-color: #a11010;
+  color: white;
+}
+
+.defense {
+  background-color: #f5f3dd;
+  color: black;
+}
+
+.zone:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 5px #fff2;
+}
+
+#attack-btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #000;
+  color: #fff;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+#attack-btn:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+}
+
+#battle-log {
+  margin-top: 20px;
+  max-width: 1200px;
+  width: 100%;
+  background: #111;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: inset 0 0 10px #000;
+  overflow-y: auto;
+  max-height: 200px;
+}
+
+#battle-log li {
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  color: #ccc;
+}
+
