@@ -341,7 +341,7 @@ progress::-webkit-progress-value {
   box-shadow: 0 0 5px #fff2;
 }
 
-#attack-btn {
+#attack-button {
   margin-top: 10px;
   padding: 10px 20px;
   font-size: 1rem;
@@ -352,7 +352,7 @@ progress::-webkit-progress-value {
   cursor: pointer;
 }
 
-#attack-btn:disabled {
+#attack-button:disabled {
   background-color: #666;
   cursor: not-allowed;
 }
@@ -373,5 +373,23 @@ progress::-webkit-progress-value {
   font-size: 0.9rem;
   margin-bottom: 6px;
   color: #ccc;
+}
+.zone.selected {
+  box-shadow: inset 0 0 5px #000;
+  transform: scale(0.98);
+  border: 2px solid #ff1010;
+  background-color: #333;
+  color: #ffffff;
+}
+.zone-name {
+  color: #ffffff;
+  font-weight: bold;
+}
+.damage {
+  color: #a11010;
+  font-weight: bold;
+}
+.zone.selected {
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
