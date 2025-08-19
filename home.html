@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="fight.css">
     <link rel="stylesheet" href="./normalize.css">
+    <link rel="apple-tuuch-icon" sizes="100x100" href="assets/favi/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favi/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favi/favicon-16x16.png">
+    <link rel="manifest" href="assets/favi/site.webmanifest">
     <title>Fight Club</title>
 </head>
 <body>
@@ -22,11 +26,11 @@
   </nav>
 </header>
 <main>
-  <section class="home-screen active-screen">
+  <section class="home-screen screen active-screen">
     <h1 class="welcome-title">Welcome, <span id="player-name"></span>!</h1>
     <button id="start-fight-btn">Start the Fight!</button>
   </section>
-   <section class="character-screen hidden-screen">
+   <section class="character-screen screen hidden-screen">
     <h2 class="avatar-title">Your Character</h2>
         <div class="character-card">
           <img id="avatar" src="" alt="selected avatar">
@@ -45,7 +49,7 @@
       </div>
     </div>
   </section>
-  <section class="settings-screen hidden-screen">
+  <section class="settings-screen screen hidden-screen">
   <h2>Settings</h2>
   <div class="settings-card">
     <label for="new-name">Change your name:</label>
@@ -53,15 +57,54 @@
     <button id="save-name-btn">Save</button>
   </div>
 </section>
+<section id="fight-screen" class="fight-screen screen hidden-screen">
+    <h2>Battle Arena</h2>
+    <div class="arena-layout">
+    <div id="player" class="character-cards">
+      <h3>Player: <span id="player-fight-name"></span></h3>
+      <img id="player-avatar" src="" alt="your character">
+      <progress id="player-health" value="100" max="100"></progress>
+    </div>  
+   
+    <div id="controls" class="zone-panel">
+      <p>Attack zone:</p>
+      <div class="attack-zones">
+      <button class="zone attack" data-zone="head">Head</button>
+      <button class="zone attack" data-zone="torso">Torso</button>
+      <button class="zone attack" data-zone="arms">Arms</button>
+      <button class="zone attack" data-zone="legs">Legs</button>
+    </div>
+    <p>Defense zones (2):</p>
+    <div class="defense-zones">
+    <button class="zone defense" data-zone="head">Head</button>
+    <button class="zone defense" data-zone="torso">Torso</button>
+    <button class="zone defense" data-zone="arms">Arms</button>
+    <button class="zone defense" data-zone="legs">Legs</button>
+  </div>
+      <button id="attack-btn" disabled>Attack!</button>
+    </div>
+    <div id="enemy" class="character-cards">
+      <h3>Enemy: <span id="enemy-name"></span></h3>
+      <img id="enemy-avatar" src="" alt="Enemy character">
+      <progress id="enemy-health" value="100" max="100"></progress>
+    </div>
+    </div>
+   
+    <ul id="battle-log"></ul>
+  </section>
 </main>
   <script>
     function showScreen(screenClass) {
-  document.querySelectorAll('.screen').forEach(screen => {
-    screen.classList.add('hidden-screen');
+  document.querySelectorAll('main section').forEach(sec => {
+    sec.classList.add('hidden-screen');
+    sec.classList.remove('active-screen');
   });
-  document.querySelector(`.${screenClass}`)?.classList.remove('hidden-screen');
+  const target = document.querySelector(`.${screenClass}`);
+  if (target) {
+    target.classList.remove('hidden-screen');
+    target.classList.add('active-screen');
+  }
 }
-
     document.querySelector('.settings-icon')?.addEventListener('click', () => {
   showScreen('settings-screen');
 });
@@ -82,7 +125,20 @@ document.getElementById('save-name-btn')?.addEventListener('click', () => {
 
     // Переход к экрану боя
     document.getElementById('start-fight-btn').addEventListener('click', () => {
-      window.location.href = 'fight.html';
+      const name = localStorage.getItem('playerName') || 'Player';
+      const avatarSrc = localStorage.getItem('avatarSrc') || 'assets/character/Character1.png';
+      const enemies = [
+        { name: 'Voxnull', img:'assets/enemy/enemy1.png' },
+        { name: 'Oktar', img:'assets/enemy/enemy2.png' },
+        { name: 'Crimora', img:'assets/enemy/enemy3.png' }
+      ];
+
+      const random = enemies[Math.floor(Math.random() * enemies.length)];
+      document.getElementById('enemy-avatar').src = random.img;
+      document.getElementById('enemy-name').textContent = random.name;
+      document.getElementById('player-avatar').src = avatarSrc;
+      document.getElementById('player-fight-name').textContent = name;
+      showScreen('fight-screen');
     });
   </script>
 <script>
@@ -149,13 +205,38 @@ window.onload = () => {
   document.querySelector('.profile-icon')?.addEventListener('click', () => {
     showScreen('character-screen');
   });
-
-  document.getElementById('start-fight-btn')?.addEventListener('click', () => {
-    window.location.href = 'fight.html';
-  });
   document.querySelector('.settings-icon')?.addEventListener('click', () => {
   showScreen('settings-screen');
 });
+let selectedAttack = null;
+let selectedDefense = [];
+
+document.querySelectorAll('.attack').forEach(btn => {
+  btn.addEventListener('click', () => {
+    selectedAttack = btn.dataset.zone;
+    document.querySelectorAll('.attack').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    updateAttackButtonState();
+  });
+});
+
+document.querySelectorAll('.defense').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const zone = btn.dataset.zone;
+    if (selectedDefense.includes(zone)) {
+      selectedDefense = selectedDefense.filter(z => z !== zone);
+      btn.classList.remove('selected');
+    } else if (selectedDefense.length < 2) {
+      selectedDefense.push(zone);
+      btn.classList.add('selected');
+    }
+    updateAttackButtonState();
+  });
+});
+
+function updateAttackButtonState() {
+  document.getElementById('attack-btn').disabled = !(selectedAttack && selectedDefense.length === 2);
+}
 
 };
 </script>
