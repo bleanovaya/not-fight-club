@@ -129,7 +129,7 @@ function endGame(playerWon) {
   const title = document.getElementById('endgame-title');
   const restartBtn = document.getElementById('restart-btn');
 
-  title.textContent = playerWon ? 'Victory!' : 'Drfeat...';
+  title.textContent = playerWon ? 'Victory!' : 'Defeat...';
   title.style.color = playerWon ? 'green' : 'red';
 
   modal.classList.remove('hidden');
