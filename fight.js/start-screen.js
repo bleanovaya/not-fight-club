@@ -45,3 +45,10 @@ document.querySelector('.registration-form')?.addEventListener('submit', (e) => 
       document.getElementById('player-fight-name').textContent = name;
       showScreen('fight-screen');
     });
+window.addEventListener('DOMContentLoaded', () => {
+  const avatarSrc = localStorage.getItem('avatarSrc') || 'assets/character/Character1.png';
+  const fighterImg = document.getElementById('fighter-img');
+const preview = document.getElementById('character-preview');
+  fighterImg.src = avatarSrc;
+   preview.classList.remove('hidden'); 
+});
