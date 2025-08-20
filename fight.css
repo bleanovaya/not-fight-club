@@ -415,7 +415,6 @@ progress::-webkit-progress-value {
   align-items: center;
   z-index: 9999;
 }
-
 .modal-content {
   background: #ffffff;
   padding: 2rem 10rem;
@@ -423,14 +422,88 @@ progress::-webkit-progress-value {
   text-align: center;
   box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
-
 .modal-content h2 {
   font-size: 2rem;
   color: #5a0d0d;
   margin-bottom: 20px;
 }
-
 .hidden {
   display: none;
+}
+@media (max-width: 430px) {
+  .title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .registration-form input[type="text"],
+  #new-name {
+    font-size: 1rem;
+    padding: 0.4rem;
+    width: 100%;
+  }
+
+  button,
+  #start-fight-btn,
+  #save-name-btn {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  .home-screen {
+    padding: 8rem 1rem;
+  }
+
+  .welcome-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .character-cards {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .arena-layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .zone-panel {
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  .avatar-option {
+    width: 80px;
+  }
+
+  .avatar-title {
+    font-size: 1.5rem;
+  }
+
+  .modal-content {
+    padding: 1.5rem 2rem;
+  }
+
+  .modal-content h2 {
+    font-size: 1.5rem;
+  }
+
+  #battle-log {
+    max-height: 150px;
+    font-size: 0.8rem;
+    padding: 10px;
+  }
+
+  .nav-menu {
+    gap: 1rem;
+  }
+
+  .nav-icon img {
+    width: 24px;
+    height: 24px;
+  }
 }
 
