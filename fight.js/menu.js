@@ -1,18 +1,27 @@
 window.onload = () => {
-  // Инициализация имени
+function updateNameDisplay() {
   const name = localStorage.getItem('playerName') || 'Player';
   document.getElementById('player-name').textContent = name;
   document.getElementById('char-name').textContent = name;
+}
+document.getElementById('save-name-btn')?.addEventListener('click', () => {
+  const newName = document.getElementById('new-name').value.trim();
+  if (newName) {
+    localStorage.setItem('playerName', newName);
+    updateNameDisplay(); 
+    alert('Name updated!');
+  }
+  document.getElementById('new-name')?.focus();
+});
 
-  // Победы и поражения
+updateNameDisplay();
+
   document.getElementById('wins').textContent = localStorage.getItem('wins') || 0;
   document.getElementById('losses').textContent = localStorage.getItem('losses') || 0;
 
-  // Аватар
   const avatarSrc = localStorage.getItem('avatarSrc') || 'assets/character/Character1.png';
   document.getElementById('avatar').src = avatarSrc;
 
-  // Смена аватара через загрузку
   const avatarUpload = document.getElementById('avatar-upload');
   if (avatarUpload) {
     avatarUpload.addEventListener('change', (e) => {
@@ -28,7 +37,6 @@ window.onload = () => {
     });
   }
 
-  // Выбор аватара из предложенных
   const avatarOptions = document.querySelectorAll('.avatar-option');
   avatarOptions.forEach(img => {
     img.addEventListener('click', () => {
@@ -40,7 +48,6 @@ window.onload = () => {
     });
   });
 
-  // Переключение экранов
   function showScreen(screenClass) {
     document.querySelectorAll('main section').forEach(sec => {
       sec.classList.add('hidden-screen');
@@ -53,7 +60,6 @@ window.onload = () => {
     }
   }
 
-  // Навигация по иконкам
   document.querySelector('.home-icon')?.addEventListener('click', () => {
     showScreen('home-screen');
   });

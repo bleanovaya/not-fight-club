@@ -13,15 +13,19 @@
   showScreen('settings-screen');
 });
 
-document.getElementById('save-name-btn')?.addEventListener('click', () => {
-  const newName = document.getElementById('new-name').value.trim();
+document.querySelector('.registration-form')?.addEventListener('submit', (e) => {
+  e.preventDefault(); 
+
+  const newName = document.getElementById('player-name').value.trim();
   if (newName) {
     localStorage.setItem('playerName', newName);
-    document.getElementById('player-name').textContent = newName;
-    document.getElementById('char-name').textContent = newName;
-    alert('Name updated!');
+    window.location.href = `home.html?player-name=${encodeURIComponent(newName)}`; 
+  } else {
+    alert('Please enter a name!');
   }
 });
+
+
     const name = localStorage.getItem('playerName');
     document.getElementById('player-name').textContent = name || 'Player';
 
