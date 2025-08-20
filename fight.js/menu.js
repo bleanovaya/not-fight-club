@@ -63,7 +63,9 @@ updateNameDisplay();
   document.querySelector('.home-icon')?.addEventListener('click', () => {
     showScreen('home-screen');
   });
-
+document.getElementById('gallery-btn').addEventListener('click', () => {
+  window.location.href = 'gallery.html';
+});
   document.querySelector('.profile-icon')?.addEventListener('click', () => {
     showScreen('character-screen');
   });

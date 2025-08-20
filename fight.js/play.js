@@ -39,29 +39,30 @@ const zones = ['head', 'nack', 'body', 'belly', 'legs'];
 
 document.getElementById('attack-button').addEventListener('click', executeBattle);
 
-
 function executeBattle() {
   if (selectedAttack.length !== 1 || selectedDefense.length !== 2) return;
 if (document.getElementById('endgame-modal')?.classList.contains('hidden') === false) return;
 
   const enemyAttack = getRandomZones(currentEnemy.attackZones);
   const enemyDefense = getRandomZones(currentEnemy.defenseZones);
+const name = localStorage.getItem('playerName') || 'Player';
 
   let totalPlayerDamage = 0;
   let totalEnemyDamage = 0;
+
 
   selectedAttack.forEach(zone => {
     const isCrit = isCriticalHit(0.2); 
     const damage = calculateDamage({ damage: 20, critMultiplier: 1.5 }, enemyDefense, zone, isCrit);
     totalPlayerDamage += damage;
-    logAttack('PLAYER', currentEnemy.name, zone, damage, isCrit, enemyDefense.includes(zone));
+    logAttack(name, 'Enemy', zone, damage, isCrit, enemyDefense.includes(zone));
   });
 
   enemyAttack.forEach(zone => {
     const isCrit = isCriticalHit(currentEnemy.critChance);
     const damage = calculateDamage(currentEnemy, selectedDefense, zone, isCrit);
     totalEnemyDamage += damage;
-    logAttack(currentEnemy.name, 'PLAYER', zone, damage, isCrit, selectedDefense.includes(zone));
+    logAttack('Enemy', name, zone, damage, isCrit, selectedDefense.includes(zone));
   });
 
   playerHP -= totalEnemyDamage;
