@@ -1,6 +1,6 @@
 window.onload = () => {
 window.onload = () => {
-  const name = localStorage.getItem('playerName') || 'Игрок';
+  const name = localStorage.getItem('playerName') || 'Player';
   const wins = localStorage.getItem('wins') || 0;
   const losses = localStorage.getItem('losses') || 0;
   const avatarSrc = localStorage.getItem('avatarSrc') || 'assets/character/Character1.png';
@@ -11,7 +11,6 @@ window.onload = () => {
   document.getElementById('losses').textContent = losses;
   document.getElementById('avatar').src = avatarSrc;
 
-  // Выбор аватара
   const avatarOptions = document.querySelectorAll('.avatar-option');
   avatarOptions.forEach(img => {
     if (img.src.includes(avatarSrc)) {
@@ -27,7 +26,6 @@ window.onload = () => {
     });
   });
 
-  // Навигация
   document.querySelector('.home-icon')?.addEventListener('click', () => {
     showScreen('home-screen');
   });

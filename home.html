@@ -20,6 +20,9 @@
     <button class="nav-icon profile-icon" title="Profile">
         <img src="assets/profile.svg">
     </button>
+    <button id="gallery-btn" class="nav-icon gallery-icon" title="Gallery">
+      <img src="assets/gallery.svg">
+    </button>
     <button class="nav-icon settings-icon" title="Settings">
         <img src="assets/settings.svg">
     </button>
@@ -37,6 +40,7 @@
       <p><strong>Name:</strong> <span id="char-name"></span></p>
       <p><strong>Wins:</strong> <span id="wins">0</span></p>
       <p><strong>Losses:</strong> <span id="losses">0</span></p>
+      <button id="reset-stats">reset statistics</button>
         </div>
        <div class="avatar-selection">
         <h3>Choose a Character</h3>
@@ -64,6 +68,7 @@
       <h3>Player: <span id="player-fight-name"></span></h3>
       <img id="player-avatar" src="" alt="your character">
       <progress id="player-health" value="100" max="100"></progress>
+      <div id="player-health-text" class="health-text">150 / 150</div>
     </div>  
    
     <div id="controls" class="zone-panel">
@@ -89,11 +94,19 @@
       <h3>Enemy: <span id="enemy-name"></span></h3>
       <img id="enemy-avatar" src="" alt="Enemy character">
       <progress id="enemy-health" value="100" max="100"></progress>
+        <div id="enemy-health-text" class="health-text">150 / 150</div>
     </div>
     </div>
    
     <ul id="battle-log"></ul>
   </section>
+  <div id="endgame-modal" class="modal hidden">
+  <div class="modal-content">
+    <h2 id="endgame-title"></h2>
+    <button id="restart-btn">Play again</button>
+  </div>
+</div>
+
 </main>
   <script src="fight.js/start-screen.js"></script>
 <script src="fight.js/menu.js"></script>
